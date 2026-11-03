@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIGNAL | Market Intelligence Lab</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2d;--panel2:#172239;--line:#26344e;--text:#edf3ff;--muted:#9aabc5;--mint:#62e6b5;--blue:#83aaff;--amber:#ffca78}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0%,#1a2d4c 0,transparent 30%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1100px;margin:auto;padding:30px 22px 60px}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:20px}
+.brand{font-weight:850;letter-spacing:.18em;font-size:18px}.brand span{color:var(--mint)}.tag{font-size:11px;color:var(--mint);border:1px solid #2b7868;padding:5px 9px;border-radius:30px;letter-spacing:.08em}
+.hero{padding:38px 0 26px}.eyebrow{color:var(--mint);font-size:11px;font-weight:700;letter-spacing:.16em}.hero h1{font-size:clamp(32px,5vw,52px);line-height:1.05;margin:10px 0 12px;letter-spacing:-.04em}.hero p{color:var(--muted);max-width:690px;margin:0;font-size:16px}
+.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.card{background:linear-gradient(145deg,var(--panel),#10182a);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 12px 40px #0002}.card h2{font-size:14px;margin:0 0 16px;letter-spacing:.04em}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.metric{background:var(--panel2);border-radius:11px;padding:12px}.metric small{display:block;color:var(--muted);font-size:11px}.metric strong{display:block;font-size:22px;margin-top:3px}.up{color:var(--mint)}.down{color:#ff8f9c}
+.chartbox{height:220px;background:#0e1728;border-radius:12px;padding:10px;border:1px solid #202e46}.chartbox svg{width:100%;height:100%}.controls{display:grid;gap:18px}.control label{display:flex;justify-content:space-between;color:#cbd7e9;font-size:13px;margin-bottom:8px}.control output{color:var(--mint);font-variant-numeric:tabular-nums;font-weight:700}input[type=range]{width:100%;accent-color:var(--mint)}.hint{font-size:11px;color:var(--muted);margin-top:4px}
+.insight{border-left:3px solid var(--mint);background:#122b2a;padding:13px 14px;border-radius:0 10px 10px 0;color:#d5f7eb;font-size:13px;margin-top:16px}
+.bottom{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.pill{display:inline-block;border:1px solid var(--line);border-radius:30px;padding:4px 9px;color:var(--muted);font-size:11px;margin:0 5px 5px 0}.note{color:var(--muted);font-size:12px;margin-top:24px;border-top:1px solid var(--line);padding-top:15px}
+button{background:var(--mint);color:#082019;border:0;padding:10px 15px;border-radius:9px;font-weight:800;cursor:pointer}button:hover{filter:brightness(1.08)}
+@media(max-width:760px){.grid,.bottom{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr 1fr}.wrap{padding:20px 14px 40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><div class="brand">SIG<span>N</span>AL</div><div class="tag">INDEPENDENT PROJECT · DEMO</div></header>
+  <section class="hero">
+    <div class="eyebrow">MARKET INTELLIGENCE, MADE EXPLORABLE</div>
+    <h1>Understand the signal.<br>Question the noise.</h1>
+    <p>SIGNAL is a learning prototype for exploring how expectations, uncertainty, and liquidity can shape market prices. Adjust the assumptions and see how the simulated market responds.</p>
+  </section>
+  <div class="grid">
+    <section class="card">
+      <h2>SIMULATED EVENT CONTRACT</h2>
+      <div class="metrics">
+        <div class="metric"><small>Implied probability</small><strong id="prob">62.0%</strong></div>
+        <div class="metric"><small>Fair-value estimate</small><strong id="fair">$0.62</strong></div>
+        <div class="metric"><small>Spread</small><strong id="spread">2.4¢</strong></div>
+      </div>
+      <div class="chartbox"><svg id="chart" viewBox="0 0 700 210" preserveAspectRatio="none" role="img" aria-label="Simulated price path chart"></svg></div>
+      <div class="hint">Illustrative price path generated from the selected assumptions. Not live market data.</div>
+    </section>
+    <section class="card">
+      <h2>CHANGE THE MARKET CONDITIONS</h2>
+      <div class="controls">
+        <div class="control"><label for="belief">Market belief <output id="beliefOut">62%</output></label><input id="belief" type="range" min="5" max="95" value="62"><div class="hint">The crowd's current estimate of the event probability.</div></div>
+        <div class="control"><label for="vol">Uncertainty / volatility <output id="volOut">18%</output></label><input id="vol" type="range" min="2" max="50" value="18"><div class="hint">Higher uncertainty creates a wider range of possible outcomes.</div></div>
+        <div class="control"><label for="liq">Market liquidity <output id="liqOut">65 / 100</output></label><input id="liq" type="range" min="5" max="100" value="65"><div class="hint">Lower liquidity makes a given order more likely to move the price.</div></div>
+        <button id="reset">Reset assumptions</button>
+      </div>
+    </section>
+  </div>
+  <div class="bottom">
+    <section class="card"><h2>WHAT THE MODEL SUGGESTS</h2><div id="readout" class="insight">At this level of liquidity, a moderate order has a limited estimated price impact. The implied probability is a market expectation, not a guarantee.</div></section>
+    <section class="card"><h2>QUESTIONS TO INVESTIGATE</h2><div><span class="pill">Are probabilities calibrated?</span><span class="pill">How does liquidity affect execution?</span><span class="pill">What changes after new information?</span><span class="pill">Where can bias enter?</span></div><p class="hint">The next step for this project is to test these questions against historical market data and compare model estimates with realized outcomes.</p></section>
+  </div>
+  <footer class="note">Built as an independent educational prototype. All values and scenarios are simulated. SIGNAL does not provide investment advice or recommendations.</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+function update(){
+ const belief=+$('belief').value, vol=+$('vol').value, liq=+$('liq').value;
+ $('beliefOut').textContent=belief+'%';$('volOut').textContent=vol+'%';$('liqOut').textContent=liq+' / 100';
+ $('prob').textContent=belief.toFixed(1)+'%';$('fair').textContent='$'+(belief/100).toFixed(2);
+ const spread=(0.5+vol*.055+(100-liq)*.018);
+ $('spread').textContent=spread.toFixed(1)+'¢';
+ const impact=(100-liq)/100*(vol/20)*3.2;
+ const read=liq<30?'Thin liquidity means even a moderate order could move the simulated price noticeably. The displayed probability may be especially sensitive to order flow.':liq>75?'Deeper liquidity dampens the estimated effect of a moderate order. The market can absorb more activity before the price shifts.':'At this liquidity level, a moderate order has a measurable but limited estimated price impact. The implied probability is a market expectation, not a guarantee.';
+ $('readout').textContent=read+' Estimated impact of a moderate order: '+impact.toFixed(2)+' percentage points.';
+ const svg=$('chart');let pts=[];let seed=belief*17+vol*31+liq*13;
+ for(let i=0;i<46;i++){seed=(seed*9301+49297)%233280;let noise=(seed/233280-.5)*vol*.62;let drift=(belief-50)*.012;let y=105-(drift*i+noise*(.45+i/90));y=Math.max(15,Math.min(195,y));pts.push((i*15.4)+','+y)}
+ svg.innerHTML='<defs><linearGradient id="area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#62e6b5" stop-opacity=".25"/><stop offset="1" stop-color="#62e6b5" stop-opacity="0"/></linearGradient></defs>'+[45,105,165].map(y=>'<line x1="0" y1="'+y+'" x2="700" y2="'+y+'" stroke="#25344d" stroke-dasharray="4 6"/>').join('')+'<polygon points="0,210 '+pts.join(' ')+' 693,210" fill="url(#area)"/><polyline points="'+pts.join(' ')+'" fill="none" stroke="#62e6b5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="8" y="18" fill="#8fa4c1" font-size="10">SIMULATED PRICE PATH</text>';
+}
+['belief','vol','liq'].forEach(id=>$(id).addEventListener('input',update));
+$('reset').addEventListener('click',()=>{$('belief').value=62;$('vol').value=18;$('liq').value=65;update()});
+update();
+</script>
+</body>
+</html>
